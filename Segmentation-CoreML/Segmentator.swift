@@ -11,7 +11,7 @@ import Vision
 class Segmentator {
     private let labelList: [String]
     
-    private var segmentationModel: deeplab
+    private var segmentationModel: mobileunet_model
     private var request: VNCoreMLRequest?
     private var visionModel: VNCoreMLModel?
     
@@ -26,9 +26,9 @@ class Segmentator {
             return nil
         }
         
-        let segmentationModel: deeplab
+        let segmentationModel: mobileunet_model
         do {
-            segmentationModel = try deeplab(configuration: MLModelConfiguration())
+            segmentationModel = try mobileunet_model(configuration: MLModelConfiguration())
         } catch {
             print("Failed to initialise deeplab model.")
             fatalError()
@@ -37,7 +37,7 @@ class Segmentator {
         return Segmentator(labelList: labelList, segmentationModel: segmentationModel)
     }
     
-    private init(labelList: [String], segmentationModel: deeplab) {
+    private init(labelList: [String], segmentationModel: mobileunet_model) {
         self.labelList = labelList
         self.segmentationModel = segmentationModel
         
@@ -64,6 +64,7 @@ class Segmentator {
         if let observations = request.results as? [VNCoreMLFeatureValueObservation],
            let segmentationMap = observations.first?.featureValue.multiArrayValue {
             self.multiArrayResult = SegmentationMultiArrayResult(mlMultiArray: segmentationMap)
+//            print(segmentationMap.shape)
         }
     }
     
@@ -131,22 +132,13 @@ class Segmentator {
                 maxIndex = 0
                 maxVal = 0
                 
-                
-                var labels = [Float32]()
                 for x in 0..<outputClassCount {
                     let value = multiArray[i, j, x].floatValue
-                    labels.append(value)
-                }
-//                    print(Constants.softmax(z: labels))
-                labels = Constants.softmax(z: labels)
-                
-                for label in 0..<outputClassCount {
-                    if labels[label] > maxVal {
-                        maxVal = labels[label]
-                        maxIndex = label
+                    if value > maxVal {
+                        maxVal = value
+                        maxIndex = x
                     }
                 }
-
                 
                 segmentationMap[i][j] = maxIndex
                 classList.insert(maxIndex)
