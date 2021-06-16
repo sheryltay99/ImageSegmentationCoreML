@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreML
 
 class ViewController: UIViewController {
 
@@ -40,19 +41,20 @@ class ViewController: UIViewController {
         if self.isCameraAvailable {
             photoCameraButton.isEnabled = true
         }
-        
+
         // Do any additional setup after loading the view.
         segmentationSwitch.isOn = false
-        
+
         guard let segmentator = Segmentator.getInstance() else {
             self.segmentationStatusLabel.text = "Unable to load segmentator."
             return
         }
         self.segmentator = segmentator
-        
+
         //run default segmentation.
         self.segmentationStatusLabel.text = "Running inference..."
         showDemoSegmentation()
+        
     }
     
     @IBAction func onSwitchSegmentation(_ sender: UISwitch) {
@@ -79,8 +81,10 @@ class ViewController: UIViewController {
             self.imageView.image = segmentationInput
         case 1:
             self.imageView.image = segmentationResult?.segmentedImage
+//            self.imageView.image = segmentationResult?.confidenceSegmentedImage
         case 2:
             self.imageView.image = segmentationResult?.overlayImage
+//            self.imageView.image = segmentationResult?.confidenceOverlayImage
         default:
             self.imageView.image = segmentationInput
         }
@@ -88,29 +92,29 @@ class ViewController: UIViewController {
     
     /// Demo image segmentation with a bundled image.
     private func showDemoSegmentation() {
-//        if let filePath = Bundle.main.path(forResource: "10020", ofType: "png"),
-//           let image = UIImage(contentsOfFile: filePath) {
-//            self.startTime = Date()
-//            self.now = self.startTime
-//            print("start time: \(self.startTime)")
-//            runSegmentation(image: image)
-//        }
-        
-        if let firstFilePath = Bundle.main.path(forResource: "10020", ofType: "png"),
-           let firstImage = UIImage(contentsOfFile: firstFilePath),
-           let secondFilePath = Bundle.main.path(forResource: "10005", ofType: "png"),
-           let secondImage = UIImage(contentsOfFile: secondFilePath)
-        {
-            for i in 0..<50 {
-                print("executing for index \(i) at \(Date())")
-                if i % 2 == 0 {
-                    runSegmentation(image: firstImage, index: i)
-                } else {
-                    runSegmentation(image: secondImage, index: i)
-                }
-                print("did execution for index \(i) at \(Date())")
-            }
+        if let filePath = Bundle.main.path(forResource: "10020", ofType: "png"),
+           let image = UIImage(contentsOfFile: filePath) {
+            self.startTime = Date()
+            self.now = self.startTime
+            print("start time: \(self.startTime)")
+            runSegmentation(image: image, index: 0)
         }
+        
+//        if let firstFilePath = Bundle.main.path(forResource: "10020", ofType: "png"),
+//           let firstImage = UIImage(contentsOfFile: firstFilePath),
+//           let secondFilePath = Bundle.main.path(forResource: "10005", ofType: "png"),
+//           let secondImage = UIImage(contentsOfFile: secondFilePath)
+//        {
+//            for i in 0..<50 {
+//                print("executing for index \(i) at \(Date())")
+//                if i % 2 == 0 {
+//                    runSegmentation(image: firstImage, index: i)
+//                } else {
+//                    runSegmentation(image: secondImage, index: i)
+//                }
+//                print("did execution for index \(i) at \(Date())")
+//            }
+//        }
     }
     
     func runSegmentation(image: UIImage, index: Int) {
@@ -189,7 +193,7 @@ class ViewController: UIViewController {
         let legendText = NSMutableAttributedString(string: "Legend: ")
         let segmentationColourLegend: [String: UIColor]
         
-            segmentationColourLegend = segmentationResult.colourLegend
+        segmentationColourLegend = segmentationResult.colourLegend
         
         // Loop through the classes founded in the image.
         segmentationColourLegend.forEach { (className, color) in

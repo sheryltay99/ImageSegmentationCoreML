@@ -11,6 +11,10 @@
 		2102A05A264226AC000569B7 /* 10024.png in Resources */ = {isa = PBXBuildFile; fileRef = 2102A059264226AC000569B7 /* 10024.png */; };
 		2102A064264226C1000569B7 /* 10028.png in Resources */ = {isa = PBXBuildFile; fileRef = 2102A05C264226C1000569B7 /* 10028.png */; };
 		2102A068264226EE000569B7 /* 10006.png in Resources */ = {isa = PBXBuildFile; fileRef = 2102A067264226EE000569B7 /* 10006.png */; };
+		2107302F2671ED9000C653EE /* SegmentationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2107302E2671ED9000C653EE /* SegmentationMap.swift */; };
+		21800D50266E107200D7532F /* TissueLabelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21800D4F266E107200D7532F /* TissueLabelType.swift */; };
+		21800D57266F177C00D7532F /* ConfidenceLabelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21800D56266F177C00D7532F /* ConfidenceLabelType.swift */; };
+		2184A3022655F1EE00AEF111 /* MobileNetV2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2184A3012655F1EE00AEF111 /* MobileNetV2.mlmodel */; };
 		21887CB726256CC5005707C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21887CB626256CC5005707C1 /* AppDelegate.swift */; };
 		21887CB926256CC5005707C1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21887CB826256CC5005707C1 /* SceneDelegate.swift */; };
 		21887CBB26256CC5005707C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21887CBA26256CC5005707C1 /* ViewController.swift */; };
@@ -26,6 +30,7 @@
 		21887CEC2625721F005707C1 /* 10038.png in Resources */ = {isa = PBXBuildFile; fileRef = 21887CEB2625721F005707C1 /* 10038.png */; };
 		219592FF263BC342007AF858 /* mobileunet_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 219592FE263BC342007AF858 /* mobileunet_model.mlmodel */; };
 		21959302263BD697007AF858 /* 10020.png in Resources */ = {isa = PBXBuildFile; fileRef = 21959301263BD697007AF858 /* 10020.png */; };
+		21A747732679A330002F5317 /* mobileunet_model.mlpackage in Resources */ = {isa = PBXBuildFile; fileRef = 21A747722679A330002F5317 /* mobileunet_model.mlpackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +38,10 @@
 		2102A059264226AC000569B7 /* 10024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10024.png; sourceTree = "<group>"; };
 		2102A05C264226C1000569B7 /* 10028.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10028.png; sourceTree = "<group>"; };
 		2102A067264226EE000569B7 /* 10006.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10006.png; sourceTree = "<group>"; };
+		2107302E2671ED9000C653EE /* SegmentationMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationMap.swift; sourceTree = "<group>"; };
+		21800D4F266E107200D7532F /* TissueLabelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TissueLabelType.swift; sourceTree = "<group>"; };
+		21800D56266F177C00D7532F /* ConfidenceLabelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfidenceLabelType.swift; sourceTree = "<group>"; };
+		2184A3012655F1EE00AEF111 /* MobileNetV2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = MobileNetV2.mlmodel; sourceTree = "<group>"; };
 		21887CB326256CC5005707C1 /* Segmentation-CoreML.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Segmentation-CoreML.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21887CB626256CC5005707C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21887CB826256CC5005707C1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +59,7 @@
 		21887CEB2625721F005707C1 /* 10038.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10038.png; sourceTree = "<group>"; };
 		219592FE263BC342007AF858 /* mobileunet_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = mobileunet_model.mlmodel; sourceTree = "<group>"; };
 		21959301263BD697007AF858 /* 10020.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10020.png; sourceTree = "<group>"; };
+		21A747722679A330002F5317 /* mobileunet_model.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mobileunet_model.mlpackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +96,10 @@
 				21887CB626256CC5005707C1 /* AppDelegate.swift */,
 				21887CB826256CC5005707C1 /* SceneDelegate.swift */,
 				21887CBA26256CC5005707C1 /* ViewController.swift */,
+				2107302E2671ED9000C653EE /* SegmentationMap.swift */,
 				21887CD626256D68005707C1 /* Segmentator.swift */,
+				21800D56266F177C00D7532F /* ConfidenceLabelType.swift */,
+				21800D4F266E107200D7532F /* TissueLabelType.swift */,
 				21887CD926256D9B005707C1 /* Extensions.swift */,
 				21887CDC26256DC0005707C1 /* SegmentationMultiArrayResult.swift */,
 				21887CBC26256CC5005707C1 /* Main.storyboard */,
@@ -110,6 +123,8 @@
 				21887CD326256D20005707C1 /* deeplab.mlmodel */,
 				21887CD026256D17005707C1 /* deeplab.json */,
 				219592FE263BC342007AF858 /* mobileunet_model.mlmodel */,
+				21A747722679A330002F5317 /* mobileunet_model.mlpackage */,
+				2184A3012655F1EE00AEF111 /* MobileNetV2.mlmodel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -180,6 +195,7 @@
 				2102A068264226EE000569B7 /* 10006.png in Resources */,
 				21959302263BD697007AF858 /* 10020.png in Resources */,
 				2102A0572642269B000569B7 /* 10035.png in Resources */,
+				21A747732679A330002F5317 /* mobileunet_model.mlpackage in Resources */,
 				21887CC026256CCB005707C1 /* Assets.xcassets in Resources */,
 				21887CBE26256CC5005707C1 /* Main.storyboard in Resources */,
 			);
@@ -192,12 +208,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2107302F2671ED9000C653EE /* SegmentationMap.swift in Sources */,
+				2184A3022655F1EE00AEF111 /* MobileNetV2.mlmodel in Sources */,
 				21887CD726256D68005707C1 /* Segmentator.swift in Sources */,
 				21887CDA26256D9B005707C1 /* Extensions.swift in Sources */,
 				21887CD426256D20005707C1 /* deeplab.mlmodel in Sources */,
 				21887CBB26256CC5005707C1 /* ViewController.swift in Sources */,
 				219592FF263BC342007AF858 /* mobileunet_model.mlmodel in Sources */,
+				21800D57266F177C00D7532F /* ConfidenceLabelType.swift in Sources */,
 				21887CB726256CC5005707C1 /* AppDelegate.swift in Sources */,
+				21800D50266E107200D7532F /* TissueLabelType.swift in Sources */,
 				21887CB926256CC5005707C1 /* SceneDelegate.swift in Sources */,
 				21887CDD26256DC0005707C1 /* SegmentationMultiArrayResult.swift in Sources */,
 			);
