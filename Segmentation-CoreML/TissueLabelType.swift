@@ -58,29 +58,32 @@ enum TissueLabelType: String, CaseIterable {
         }
     }
     
+//    var colorAsUint: UInt32 {
+//        switch self {
+//        case .skin:
+//            return 0xFF1E_4928
+//            
+//        case .epithelising:
+//            return 0xFFFF_1493
+//            
+//        case .healthyGranulation:
+//            return 0xFF00_F772
+//            
+//        case .unhealthyGranulation:
+//            return 0xFF0D_E0E5
+//            
+//        case .slough:
+//            return 0xFFFF_FF00
+//        
+//        case .necrosis:
+//            return 0xFFAA_6E28
+//            
+//        case .others:
+//            return 0xFF1E_90FF
+//        }
+//    }
     var colorAsUint: UInt32 {
-        switch self {
-        case .skin:
-            return 0xFF1E_4928
-            
-        case .epithelising:
-            return 0xFFFF_1493
-            
-        case .healthyGranulation:
-            return 0xFF00_F772
-            
-        case .unhealthyGranulation:
-            return 0xFF0D_E0E5
-            
-        case .slough:
-            return 0xFFFF_FF00
-        
-        case .necrosis:
-            return 0xFFAA_6E28
-            
-        case .others:
-            return 0xFF1E_90FF
-        }
+        return self.color.asUInt32
     }
     
     /// Localised String of Tissue Labels

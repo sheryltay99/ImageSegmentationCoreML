@@ -76,38 +76,41 @@ enum ConfidenceLabelType: String, CaseIterable {
     }
     
     /// Annotation or Reference Color as UInt32
+//    var colorAsUint: UInt32 {
+//        switch self {
+//        case .ninetyOneToHundred:
+//            return 0xFF24_6590
+//
+//        case .eightyOneToNinety:
+//            return 0xFF24_6590
+//
+//        case .seventyOneToEighty:
+//            return 0xFF24_6590
+//
+//        case .sixtyOneToSeventy:
+//            return 0xFF3D_ACF7
+//
+//        case .fiftyOneToSixty:
+//            return 0xFF79_D6F9
+//
+//        case .fortyOneToFifty:
+//            return 0xFFE8_7AA4
+//
+//        case .thirtyOneToForty:
+//            return 0xFFF9_D98C
+//
+//        case .twentyOneToThirty:
+//            return 0xFFB8_E233
+//
+//        case .elevenToTwenty:
+//            return 0xFFB8_E233
+//
+//        case .oneToTen:
+//            return 0xFFB8_E233
+//        }
+//    }
     var colorAsUint: UInt32 {
-        switch self {
-        case .ninetyOneToHundred:
-            return 0xFF24_6590
-            
-        case .eightyOneToNinety:
-            return 0xFF24_6590
-            
-        case .seventyOneToEighty:
-            return 0xFF24_6590
-            
-        case .sixtyOneToSeventy:
-            return 0xFF3D_ACF7
-            
-        case .fiftyOneToSixty:
-            return 0xFF79_D6F9
-            
-        case .fortyOneToFifty:
-            return 0xFFE8_7AA4
-            
-        case .thirtyOneToForty:
-            return 0xFFF9_D98C
-            
-        case .twentyOneToThirty:
-            return 0xFFB8_E233
-            
-        case .elevenToTwenty:
-            return 0xFFB8_E233
-            
-        case .oneToTen:
-            return 0xFFB8_E233
-        }
+        return self.color.asUInt32
     }
     
     /// Localised String of Tissue Labels

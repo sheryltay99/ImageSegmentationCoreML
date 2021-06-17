@@ -302,6 +302,18 @@ extension UIColor {
         
         return (brightness > threshold)
     }
+    
+    var asUInt32: UInt32 {
+        var red: CGFloat = 0, green: CGFloat = 0, blue: CGFloat = 0, alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        let value: UInt32 = UInt32(alpha * 255) << 24
+            + UInt32(red   * 255) << 16
+            + UInt32(green * 255) << 8
+            + UInt32(blue  * 255)
+        
+        return value
+    }
+    
 }
 
 // MARK: - Constants

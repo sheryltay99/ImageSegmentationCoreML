@@ -30,7 +30,6 @@
 		21887CEC2625721F005707C1 /* 10038.png in Resources */ = {isa = PBXBuildFile; fileRef = 21887CEB2625721F005707C1 /* 10038.png */; };
 		219592FF263BC342007AF858 /* mobileunet_model.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 219592FE263BC342007AF858 /* mobileunet_model.mlmodel */; };
 		21959302263BD697007AF858 /* 10020.png in Resources */ = {isa = PBXBuildFile; fileRef = 21959301263BD697007AF858 /* 10020.png */; };
-		21A747732679A330002F5317 /* mobileunet_model.mlpackage in Resources */ = {isa = PBXBuildFile; fileRef = 21A747722679A330002F5317 /* mobileunet_model.mlpackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,7 +58,6 @@
 		21887CEB2625721F005707C1 /* 10038.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10038.png; sourceTree = "<group>"; };
 		219592FE263BC342007AF858 /* mobileunet_model.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = mobileunet_model.mlmodel; sourceTree = "<group>"; };
 		21959301263BD697007AF858 /* 10020.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 10020.png; sourceTree = "<group>"; };
-		21A747722679A330002F5317 /* mobileunet_model.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder; path = mobileunet_model.mlpackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,7 +121,6 @@
 				21887CD326256D20005707C1 /* deeplab.mlmodel */,
 				21887CD026256D17005707C1 /* deeplab.json */,
 				219592FE263BC342007AF858 /* mobileunet_model.mlmodel */,
-				21A747722679A330002F5317 /* mobileunet_model.mlpackage */,
 				2184A3012655F1EE00AEF111 /* MobileNetV2.mlmodel */,
 			);
 			path = Model;
@@ -195,7 +192,6 @@
 				2102A068264226EE000569B7 /* 10006.png in Resources */,
 				21959302263BD697007AF858 /* 10020.png in Resources */,
 				2102A0572642269B000569B7 /* 10035.png in Resources */,
-				21A747732679A330002F5317 /* mobileunet_model.mlpackage in Resources */,
 				21887CC026256CCB005707C1 /* Assets.xcassets in Resources */,
 				21887CBE26256CC5005707C1 /* Main.storyboard in Resources */,
 			);

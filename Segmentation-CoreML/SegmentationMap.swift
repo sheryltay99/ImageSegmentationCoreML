@@ -175,25 +175,40 @@ struct SegmentationMap {
         return UIImage(cgImage: cgImage)
     }
     
-    /// Look up the colors used to visualize the classes found in the image.
-    private func classListToColorLegend(classList: Set<Int>,
-                                       isConfidence: Bool) -> [String: UIColor] {
-        var colorLegend: [String: UIColor] = [:]
+//    /// Look up the colors used to visualize the classes found in the image.
+//    private func classListToColorLegend(classList: Set<Int>,
+//                                       isConfidence: Bool) -> [String: UIColor] {
+//        var colorLegend: [String: UIColor] = [:]
+//        let sortedClassIndexList = classList.sorted()
+//        sortedClassIndexList.forEach { classIndex in
+//            // Look up the color legend for the class.
+//            let color: UIColor
+//            let label: String
+//            if isConfidence {
+//                color = confidenceLabelList[classIndex].color
+//                label = confidenceLabelList[classIndex].rawValue
+//            } else {
+//                color = labelList[classIndex].color
+//                label = labelList[classIndex].rawValue
+//            }
+//
+//            colorLegend[label] = color
+//        }
+//        return colorLegend
+//    }
+    private func classListToColorLegend(classList: Set<Int>) -> [String: UIColor] {
         let sortedClassIndexList = classList.sorted()
-        sortedClassIndexList.forEach { classIndex in
-            // Look up the color legend for the class.
-            let color: UIColor
-            let label: String
-            if isConfidence {
-                color = confidenceLabelList[classIndex].color
-                label = confidenceLabelList[classIndex].rawValue
-            } else {
-                color = labelList[classIndex].color
-                label = labelList[classIndex].rawValue
-            }
-            
-            colorLegend[label] = color
-        }
+        let colors = sortedClassIndexList.map{labelList[$0].color}
+        let labels = sortedClassIndexList.map{labelList[$0].rawValue}
+        let colorLegend = Dictionary(uniqueKeysWithValues: zip(labels, colors))
+        return colorLegend
+    }
+    
+    private func classListToConfidenceColorLegend(classList: Set<Int>) -> [String: UIColor] {
+        let sortedClassIndexList = classList.sorted()
+        let colors = sortedClassIndexList.map{confidenceLabelList[$0].color}
+        let labels = sortedClassIndexList.map{confidenceLabelList[$0].rawValue}
+        let colorLegend = Dictionary(uniqueKeysWithValues: zip(labels, colors))
         return colorLegend
     }
     
@@ -220,8 +235,8 @@ struct SegmentationMap {
     }
     
     mutating private func generateColorLegend() {
-        let colorLegend = classListToColorLegend(classList: classList, isConfidence: false)
-        let confidenceColorLegend = classListToColorLegend(classList: confidenceClassList, isConfidence: true)
+        let colorLegend = classListToColorLegend(classList: classList)
+        let confidenceColorLegend = classListToConfidenceColorLegend(classList: confidenceClassList)
         self.colorLegend = colorLegend
         self.confidenceColorLegend = confidenceColorLegend
     }
