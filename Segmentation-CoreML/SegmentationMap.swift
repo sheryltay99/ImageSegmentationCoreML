@@ -7,21 +7,21 @@
 import UIKit
 
 struct SegmentationMap {
-    var segmentationMap: [[Int]]
-    var segmentationPixelColor: [UInt32]
-    var classList: Set<Int>
-    var confidenceSegmentationMap: [[Int]]
-    var confidenceSegmentationPixelColor: [UInt32]
-    var confidenceClassList: Set<Int>
+    private var segmentationMap: [[Int]]
+    private var segmentationPixelColor: [UInt32]
+    private var classList: Set<Int>
+    private var confidenceSegmentationMap: [[Int]]
+    private var confidenceSegmentationPixelColor: [UInt32]
+    private var confidenceClassList: Set<Int>
     
-    var multiArray: SegmentationMultiArrayResult?
+    private var multiArray: SegmentationMultiArrayResult?
     
-    let outputImageWidth: Int
-    let outputImageHeight: Int
-    let outputClassCount: Int
+    private let outputImageWidth: Int
+    private let outputImageHeight: Int
+    private let outputClassCount: Int
     
-    let labelList = TissueLabelType.allCases
-    let confidenceLabelList = ConfidenceLabelType.allCases
+    private let labelList = TissueLabelType.allCases
+    private let confidenceLabelList = ConfidenceLabelType.allCases
     
     var segmentedImage: UIImage?
     var overlayImage: UIImage?
@@ -36,20 +36,20 @@ struct SegmentationMap {
     // Init for CoreML model.
     init(multiArray: SegmentationMultiArrayResult) {
         self.multiArray = multiArray
-        self.outputImageWidth = multiArray.segmentationMapWidthSize
-        self.outputImageHeight = multiArray.segmentationMapHeightSize
-        self.outputClassCount = multiArray.classes
+        outputImageWidth = multiArray.segmentationMapWidthSize
+        outputImageHeight = multiArray.segmentationMapHeightSize
+        outputClassCount = multiArray.classes
         
-        self.segmentationMap = [[Int]](repeating: [Int](repeating: 0, count: outputImageHeight),
+        segmentationMap = [[Int]](repeating: [Int](repeating: 0, count: outputImageHeight),
                                     count: outputImageWidth)
-        self.segmentationPixelColor = [UInt32](
+        segmentationPixelColor = [UInt32](
             repeating: 0, count: outputImageHeight * outputImageWidth)
-        self.classList = Set<Int>()
-        self.confidenceSegmentationMap = [[Int]](repeating: [Int](repeating: 0, count: outputImageHeight),
+        classList = Set<Int>()
+        confidenceSegmentationMap = [[Int]](repeating: [Int](repeating: 0, count: outputImageHeight),
                                     count: outputImageWidth)
-        self.confidenceSegmentationPixelColor = [UInt32](
+        confidenceSegmentationPixelColor = [UInt32](
             repeating: 0, count: outputImageHeight * outputImageWidth)
-        self.confidenceClassList = Set<Int>()
+        confidenceClassList = Set<Int>()
         
         parseModelOutput(firstIter: outputImageHeight, secondIter: outputImageWidth)
     }

@@ -42,27 +42,27 @@ class Segmentator {
     private func setUpModel() {
         let model = segmentationModel.model
         do {
-            self.visionModel = try VNCoreMLModel(for: model)
+            visionModel = try VNCoreMLModel(for: model)
         } catch let error {
             print("Failed to convert to VNCoreMLModel with error: \(error)")
         }
         
         if let visionModel = self.visionModel {
-            self.request = VNCoreMLRequest(model: visionModel, completionHandler: visionRequestDidComplete)
+            request = VNCoreMLRequest(model: visionModel, completionHandler: visionRequestDidComplete)
             request?.imageCropAndScaleOption = .scaleFill
         }
     }
     
-    func visionRequestDidComplete(request: VNRequest, error: Error?) {
+    private func visionRequestDidComplete(request: VNRequest, error: Error?) {
         // using feature value
         if let observations = request.results as? [VNCoreMLFeatureValueObservation],
            let segmentationMap = observations.first?.featureValue.multiArrayValue {
-            self.multiArrayResult = SegmentationMultiArrayResult(mlMultiArray: segmentationMap)
+            multiArrayResult = SegmentationMultiArrayResult(mlMultiArray: segmentationMap)
 //            print(segmentationMap.shape)
         }
     }
     
-    func setWoundImage(image: UIImage) {
+    private func setWoundImage(image: UIImage) {
         if let pngImage = image.pngData() {
             let imageSrc = UIImage(data: pngImage)
             guard let cgImage = imageSrc?.cgImage else { return }
@@ -79,15 +79,11 @@ class Segmentator {
         setWoundImage(image: image)
         
         // Waiting until we get back results from the model before proceeding.
-        while self.multiArrayResult == nil {}
+        while multiArrayResult == nil {}
         guard let multiArrayResult = self.multiArrayResult else {
             print("Unable to get MlMultiArray result from model")
             return
         }
-        
-        self.outputImageWidth = multiArrayResult.segmentationMapWidthSize
-        self.outputImageHeight = multiArrayResult.segmentationMapHeightSize
-        self.outputClassCount = multiArrayResult.classes
         
 //        let parsedOutput = parseOutput(multiArray: multiArrayResult)
         var parsedOutput = SegmentationMap(multiArray: multiArrayResult)
