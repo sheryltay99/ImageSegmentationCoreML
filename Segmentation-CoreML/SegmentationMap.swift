@@ -14,8 +14,6 @@ struct SegmentationMap {
     private var confidenceSegmentationPixelColor: [UInt32]
     private var confidenceClassList: Set<Int>
     
-    private var multiArray: SegmentationMultiArrayResult?
-    
     private let outputImageWidth: Int
     private let outputImageHeight: Int
     private let outputClassCount: Int
@@ -34,11 +32,29 @@ struct SegmentationMap {
 
     
     // Init for CoreML model.
-    init(multiArray: SegmentationMultiArrayResult) {
-        self.multiArray = multiArray
-        outputImageWidth = multiArray.segmentationMapWidthSize
-        outputImageHeight = multiArray.segmentationMapHeightSize
-        outputClassCount = multiArray.classes
+//    init(multiArray: SegmentationMultiArrayResult) {
+//        self.multiArray = multiArray
+//        outputImageWidth = multiArray.segmentationMapWidthSize
+//        outputImageHeight = multiArray.segmentationMapHeightSize
+//        outputClassCount = multiArray.classes
+//
+//        segmentationMap = [[Int]](repeating: [Int](repeating: 0, count: outputImageHeight),
+//                                    count: outputImageWidth)
+//        segmentationPixelColor = [UInt32](
+//            repeating: 0, count: outputImageHeight * outputImageWidth)
+//        classList = Set<Int>()
+//        confidenceSegmentationMap = [[Int]](repeating: [Int](repeating: 0, count: outputImageHeight),
+//                                    count: outputImageWidth)
+//        confidenceSegmentationPixelColor = [UInt32](
+//            repeating: 0, count: outputImageHeight * outputImageWidth)
+//        confidenceClassList = Set<Int>()
+//
+//        parseModelOutput(firstIter: outputImageHeight, secondIter: outputImageWidth)
+//    }
+    init(outputImageWidth: Int, outputImageHeight: Int, outputClassCount: Int, modelOutput: ModelOutput) {
+        self.outputImageWidth = outputImageWidth
+        self.outputImageHeight = outputImageHeight
+        self.outputClassCount = outputClassCount
         
         segmentationMap = [[Int]](repeating: [Int](repeating: 0, count: outputImageHeight),
                                     count: outputImageWidth)
@@ -51,7 +67,7 @@ struct SegmentationMap {
             repeating: 0, count: outputImageHeight * outputImageWidth)
         confidenceClassList = Set<Int>()
         
-        parseModelOutput(firstIter: outputImageHeight, secondIter: outputImageWidth)
+        parseModelOutput(firstIter: modelOutput.firstIter, secondIter: modelOutput.secondIter, modelOutput: modelOutput)
     }
     
 //    private init(segmentationMap: [[Int]],
@@ -106,11 +122,10 @@ struct SegmentationMap {
         return confidenceIndex
     }
     
-    private mutating func parseModelOutput(firstIter: Int, secondIter: Int) {
+    private mutating func parseModelOutput(firstIter: Int, secondIter: Int, modelOutput: ModelOutput) {
 //        let outputArray = outputTensor?.data.toArray(type: Float32.self)
         
         var maxVal: Float32 = 0.0
-        var val: Float32 = 0.0
         var maxIndex: Int = 0
         
         for x in 0..<firstIter {
@@ -119,8 +134,12 @@ struct SegmentationMap {
                 maxVal = 0.0
                 // find label with highest confidence level for that pixel
                 for z in 0..<outputClassCount {
-                    if let coremlArr = multiArray {
-                        val = coremlArr[x, y, z].floatValue
+//                    if let coremlArr = multiArray {
+//                        val = coremlArr[x, y, z].floatValue
+//                    }
+                    guard let val = modelOutput.getValue(firstIterIndex: x, secondIterIndex: y, classIndex: z) else {
+                        print("Error parsing model output.")
+                        return
                     }
                     if val > maxVal {
                         maxVal = val
@@ -133,7 +152,7 @@ struct SegmentationMap {
                 
                 // Lookup the color legend for the class.
                 let legendColor = labelList[maxIndex].colorAsUint
-                segmentationPixelColor[x * outputImageHeight + y] = legendColor
+                segmentationPixelColor[x * secondIter + y] = legendColor
                 
                 // Creating confidence segmentation map.
                 let confidenceIndex = generateConfidenceIndex(maxVal: maxVal)
@@ -142,7 +161,7 @@ struct SegmentationMap {
                 
                 // Lookup color legend for confidence.
                 let confidenceColor = confidenceLabelList[confidenceIndex].colorAsUint
-                confidenceSegmentationPixelColor[x * outputImageHeight + y] = confidenceColor
+                confidenceSegmentationPixelColor[x * secondIter + y] = confidenceColor
             }
         }
     }
